@@ -3,6 +3,10 @@
 <?= $this->section('content') ?>
 <div class="container mt-4">
     <h2 class="mb-4">Create Tender</h2>
+    
+    <!-- Bootstrap Alert for API Messages -->
+    <div id="apiMessage" class="alert d-none" role="alert"></div>
+
     <form id="tenderForm">
         <div class="mb-3">
             <label for="title" class="form-label">Title:</label>
@@ -40,12 +44,33 @@
     </form>
 </div>
 
+<!-- Modal for Confirmation -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirm Creation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to create this tender?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmCreateButton">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     const emailList = [];
     const emailInput = document.getElementById('emailInput');
     const emailListElement = document.getElementById('emailList');
     const addEmailButton = document.getElementById('addEmailButton');
     const createTenderButton = document.getElementById('createTenderButton');
+    const confirmCreateButton = document.getElementById('confirmCreateButton');
+    const apiMessage = document.getElementById('apiMessage');
 
     // Hàm lấy token từ cookie
     function getCookie(name) {
@@ -53,7 +78,6 @@
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
-
 
     addEmailButton.addEventListener('click', function() {
         const email = emailInput.value.trim();
@@ -68,11 +92,16 @@
 
             emailInput.value = '';
         } else {
-            alert('Please enter a valid email address.');
+            showApiMessage('Please enter a valid email address.', 'danger');
         }
     });
 
     createTenderButton.addEventListener('click', function() {
+        const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        confirmModal.show();
+    });
+
+    confirmCreateButton.addEventListener('click', function() {
         const title = document.getElementById('title').value;
         const description = document.getElementById('description').value;
         const visibility = document.getElementById('visibility').value;
@@ -87,7 +116,7 @@
         const token = getCookie('token');
 
         if (!token) {
-            alert('User is not authenticated.');
+            showApiMessage('User is not authenticated.', 'danger');
             return;
         }
 
@@ -102,16 +131,26 @@
         .then(response => response.json())
         .then(result => {
             if (result.status === 'success') {
-                alert('Tender created successfully!');
+                showApiMessage('Tender created successfully!', 'success');
             } else {
-                alert('Failed to create tender: ' + result.message);
+                showApiMessage('Failed to create tender: ' + result.message, 'danger');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while creating the tender.');
+            showApiMessage('An error occurred while creating the tender.', 'danger');
         });
+
+
+        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+        confirmModal.hide();
     });
+
+    function showApiMessage(message, type) {
+        apiMessage.textContent = message;
+        apiMessage.className = `alert alert-${type}`;
+        apiMessage.classList.remove('d-none');
+    }
 </script>
 
 <?= $this->endSection() ?>
