@@ -253,4 +253,22 @@ class TenderController extends ResourceController
             return $this->respond(['status' => 'error', 'message' => 'Invalid or expired token.'], 401);
         }
     }
+
+    public function viewTender($id)
+{
+    $tender = $this->tenderModel->find($id);
+    if (!$tender) {
+        return redirect()->to('/tender/list_supplier')->with('error', 'Tender not found.');
+    }
+    $invitedSuppliers = [];
+    if ($tender['visibility'] === 'private') {
+        $inviteModel = new InviteModel();
+        $invitedSuppliers = $inviteModel->where('tender_id', $id)->findAll();
+    }
+
+    return view('tender/view', [
+        'tender' => $tender,
+        'invitedSuppliers' => $invitedSuppliers
+    ]);
+}
 }
