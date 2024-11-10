@@ -11,14 +11,13 @@ $routes->get('/', 'Home::index');
 
 $routes->get('/api', 'Home::index');
 
-
-
 // Auth 
 $routes->post('auth/register', 'AuthController::register');
 $routes->post('auth/login', 'AuthController::login');
 $routes->get('auth/user', 'AuthController::getUserInfo');
 
-
-
 // Tenders
 $routes->post('tenders/create', 'TenderController::createTender');
+
+$routes->get('tenders', 'TenderController::getTenders');
+
