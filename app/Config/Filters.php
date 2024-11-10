@@ -12,6 +12,7 @@ use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
+use App\Filters\AuthMiddleware; // Thêm middleware AuthMiddleware
 
 class Filters extends BaseFilters
 {
@@ -34,6 +35,7 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'auth'          => AuthMiddleware::class, // Đăng ký AuthMiddleware
     ];
 
     /**
@@ -103,5 +105,12 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        'auth' => [
+            'before' => [
+                'tender/*',   
+                'auth/user',  
+            ]
+        ],
+    ];
 }
