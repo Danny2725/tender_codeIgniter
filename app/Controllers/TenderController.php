@@ -8,7 +8,6 @@ use Firebase\JWT\Key;
 use Config\JWT as JWTConfig;
 use App\Models\TenderModel;
 use App\Models\InviteModel;
-
 class TenderController extends ResourceController
 {
     protected $tenderModel;
@@ -74,6 +73,7 @@ class TenderController extends ResourceController
                 }
             }
 
+
             return $this->respond(['status' => 'success', 'message' => 'Tender created successfully'], 201);
         } catch (\Exception $e) {
             return $this->respond(['status' => 'error', 'message' => 'Invalid token'], 401);
@@ -122,6 +122,7 @@ class TenderController extends ResourceController
             if (preg_match('/Bearer\s(\S+)/', $headerValue, $matches)) {
                 $token = $matches[1];
             }
+
         } elseif ($this->request->getCookie('token')) {
             $token = $this->request->getCookie('token');
         }
@@ -271,4 +272,5 @@ class TenderController extends ResourceController
         'invitedSuppliers' => $invitedSuppliers
     ]);
 }
+
 }

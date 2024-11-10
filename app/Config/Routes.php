@@ -23,3 +23,4 @@ $routes->get('/login', 'AuthController::index');
 $routes->post('auth/login', 'AuthController::login');
 $routes->get('auth/user', 'AuthController::getUserInfo', ['filter' => 'auth']);
 $routes->get('/logout', 'AuthController::logout', ['filter' => 'auth']);
+

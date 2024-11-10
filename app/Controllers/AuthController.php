@@ -55,9 +55,7 @@ class AuthController extends ResourceController {
     
         $userModel = new UserModel();
         $user = $userModel->where('email', $email)->first();
-    
         if ($user && password_verify($password, $user['password'])) {
-            // Tạo JWT token
             $key = (new JWTConfig())->jwt_key;
             $payload = [
                 'iss' => 'localhost', 
@@ -70,6 +68,7 @@ class AuthController extends ResourceController {
                     'role' => $user['role'],
                 ]
             ];
+
             $token = JWT::encode($payload, $key, 'HS256');
 
             return $this->respond([
@@ -89,17 +88,20 @@ class AuthController extends ResourceController {
     public function getUserInfo() {
         $authHeader = $this->request->getHeader('Authorization');
         $token = null;
+
         if ($authHeader) {
             $headerValue = $authHeader->getValue();
             if (preg_match('/Bearer\s(\S+)/', $headerValue, $matches)) {
                 $token = $matches[1];
             }
         }
+
         if (!$token) {
             return $this->respond(['status' => 'error', 'message' => 'Token không được cung cấp'], 401);
         }
 
         try {
+
             $key = (new JWTConfig())->jwt_key;
             $decoded = JWT::decode($token, new Key($key, 'HS256'));
             $userData = (array) $decoded->data;
@@ -107,6 +109,7 @@ class AuthController extends ResourceController {
             return $this->respond(['status' => 'success', 'user' => $userData], 200);
 
         } catch (\Exception $e) {
+
             return $this->respond(['status' => 'error', 'message' => 'Token không hợp lệ'], 401);
         }
     }
