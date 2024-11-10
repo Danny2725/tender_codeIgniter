@@ -16,13 +16,23 @@ class AuthMiddleware implements FilterInterface
         $cookie = $request->getCookie('token');
 
         if (!$cookie) {
+            // Nếu không có token, chuyển hướng đến trang login
             return redirect()->to('/login');
         }
 
         try {
-            // Giải mã token
             $key = (new JWTConfig())->jwt_key;
-            JWT::decode($cookie, new Key($key, 'HS256'));
+            $decoded = JWT::decode($cookie, new Key($key, 'HS256'));
+
+            $role = $decoded->data->role ?? null;
+            $currentPath = $request->getUri()->getPath();
+            if ($currentPath === '/') {
+                if ($role == 'contractor') {
+                    return redirect()->to('/tender/list_contractor');
+                } elseif ($role == 'supplier') {
+                    return redirect()->to('/tender/list_supplier');
+                }
+            }
         } catch (\Exception $e) {
             return redirect()->to('/login');
         }
@@ -30,5 +40,6 @@ class AuthMiddleware implements FilterInterface
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
+        // Không cần xử lý gì sau khi request hoàn thành
     }
 }
