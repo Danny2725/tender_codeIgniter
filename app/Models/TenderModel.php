@@ -6,6 +6,10 @@ use CodeIgniter\Model;
 
 class TenderModel extends Model
 {
+
+    protected $table = 'tenders';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['title', 'description', 'visibility', 'creator_id'];
     // Dữ liệu mẫu cho Contractor
     public function getDummyDataForContractor()
     {

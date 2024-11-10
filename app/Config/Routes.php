@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'TenderController::store', ['filter' => 'auth']);
 $routes->get('/tender/create', 'TenderController::create', ['filter' => 'auth']);
-$routes->post('/tender/store', 'TenderController::store', ['filter' => 'auth']);
+$routes->post('/tender/createTender', 'TenderController::createTender', ['filter' => 'auth']);
 $routes->get('/tender/list_contractor', 'TenderController::listContractor', ['filter' => 'auth']);
 $routes->get('/tender/list_supplier', 'TenderController::listSupplier', ['filter' => 'auth']);
 

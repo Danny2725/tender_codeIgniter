@@ -16,7 +16,6 @@ class AuthMiddleware implements FilterInterface
         $cookie = $request->getCookie('token');
 
         if (!$cookie) {
-            // Nếu không có token, chuyển hướng đến trang login
             return redirect()->to('/login');
         }
 
@@ -40,6 +39,6 @@ class AuthMiddleware implements FilterInterface
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        // Không cần xử lý gì sau khi request hoàn thành
+
     }
 }

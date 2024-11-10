@@ -59,7 +59,6 @@
                 data: JSON.stringify(formData),
                 contentType: 'application/json',
                 success: function(response) {
-                    // Lưu token vào cookie
                     document.cookie = `token=${response.token}; path=/; max-age=3600`; 
                     let redirectUrl = '';
                     if (response.user.role === 'contractor') {
