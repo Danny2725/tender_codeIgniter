@@ -15,26 +15,38 @@ class AuthController extends ResourceController {
     {
         return view('login', ['title' => 'Login']);
     }
-    public function register() {
+
+    public function signUp()
+    {
+        return view('register', ['title' => 'register']);
+    }
+    public function register()
+    {
+        $username = $this->request->getVar('username');
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
         $role = $this->request->getVar('role') ?? 'supplier';
-
+    
         $userModel = new UserModel();
-
-        if ($userModel->where('email', $email)->first()) {
-            return $this->respond(['status' => 'error', 'message' => 'Email đã tồn tại'], 409);
+    
+        if ($userModel->where('username', $username)->first()) {
+            return $this->respond(['status' => 'error', 'message' => 'Username already exists'], 409);
         }
-
+    
+        if ($userModel->where('email', $email)->first()) {
+            return $this->respond(['status' => 'error', 'message' => 'Email already exists'], 409);
+        }
+    
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
+    
         $userModel->insert([
+            'username' => $username,
             'email' => $email,
             'password' => $hashedPassword,
             'role' => $role
         ]);
-
-        return $this->respond(['status' => 'success', 'message' => 'Đăng ký thành công'], 201);
+    
+        return $this->respond(['status' => 'success', 'message' => 'Registration successful'], 201);
     }
 
     public function login() {

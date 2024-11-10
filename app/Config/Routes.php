@@ -18,7 +18,8 @@ $routes->delete('tender/delete/(:num)', 'TenderController::deleteTender/$1');
 $routes->get('tender/view/(:num)', 'TenderController::viewTender/$1');
 // Auth 
 $routes->post('auth/register', 'AuthController::register');
+$routes->get('/register', 'AuthController::signUp');
 $routes->get('/login', 'AuthController::index');
 $routes->post('auth/login', 'AuthController::login');
 $routes->get('auth/user', 'AuthController::getUserInfo', ['filter' => 'auth']);
-$routes->get('/logout', 'UserController::logout', ['filter' => 'auth']);
+$routes->get('/logout', 'AuthController::logout', ['filter' => 'auth']);

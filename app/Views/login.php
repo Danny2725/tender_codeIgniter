@@ -44,9 +44,8 @@
 <script>
     $(document).ready(function() {
         $('#loginForm').on('submit', function(event) {
-            event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu theo cách truyền thống
-
-            // Ẩn thông báo nếu đang hiển thị
+            event.preventDefault(); 
+            
             $('#alertMessage').addClass('d-none').removeClass('alert-success alert-danger');
 
             const formData = {
@@ -67,16 +66,16 @@
                         redirectUrl = '/tender/list_supplier';
                     }
                     if (redirectUrl) {
-                        $('#alertMessage').removeClass('d-none alert-danger').addClass('alert-success').text('Đăng nhập thành công!');
+                        $('#alertMessage').removeClass('d-none alert-danger').addClass('alert-success').text('Login successful!');
                         setTimeout(function() {
                             window.location.href = redirectUrl;
                         }, 1500);
                     } else {
-                        $('#alertMessage').removeClass('d-none alert-success').addClass('alert-danger').text('Vai trò không hợp lệ.');
+                        $('#alertMessage').removeClass('d-none alert-success').addClass('alert-danger').text('Invalid role.');
                     }
                 },
                 error: function(error) {
-                    const errorMessage = error.responseJSON ? error.responseJSON.message : 'Đăng nhập thất bại. Vui lòng thử lại.';
+                    const errorMessage = error.responseJSON ? error.responseJSON.message : 'Login failed. Please try again.';
                     $('#alertMessage').removeClass('d-none alert-success').addClass('alert-danger').text(errorMessage);
                 }
             });
