@@ -267,4 +267,26 @@ Why Choose CodeIgniter for Your Project
 
 
 
+## Comparison: CodeIgniter vs Laravel
 
+| Feature               | CodeIgniter                          | Laravel                                      |
+|-----------------------|--------------------------------------|----------------------------------------------|
+| **Complexity**        | Simple, easy to learn                | More complex, with many built-in features    |
+| **Performance**       | Fast, lightweight, few dependencies  | Slightly heavier but ideal for larger apps   |
+| **Routing**           | Basic                                | Advanced, supports RESTful and middleware    |
+| **ORM**               | Basic Active Record                  | Powerful Eloquent ORM                        |
+| **Built-In Features** | Requires additional setup for extras | Includes authentication, authorization, caching |
+| **Testing**           | Limited testing support              | Comprehensive testing tools                  |
+| **Community**         | Smaller, fewer resources available   | Large, active community, extensive resources |
+
+## When to Choose CodeIgniter vs Laravel
+
+- **Choose CodeIgniter** if:
+  - You need a fast, lightweight application with simple requirements.
+  - You’re a beginner wanting a quick way to learn PHP development.
+  - Performance and minimal setup are your top priorities.
+
+- **Choose Laravel** if:
+  - You’re building a feature-rich, complex application.
+  - You need built-in features like authentication, authorization, and RESTful API support.
+  - You’re planning for a scalable, maintainable system that might grow in the future.
