@@ -247,37 +247,23 @@ CodeIgniter is a powerful yet lightweight PHP framework known for its simplicity
 
 Key Features of CodeIgniter
 
-	1.	MVC Architecture:
-CodeIgniter is based on the MVC (Model-View-Controller) pattern, which separates application logic from the presentation. This architecture makes code organization easier and enhances the maintainability of the application.
-	2.	Lightweight and Fast:
-CodeIgniter is known for its speed and small footprint. It does not require complex setup or heavy dependencies, making it a fast framework suitable for projects where performance is crucial.
-	3.	Simple Routing:
-CodeIgniter provides a straightforward URI routing system that lets you map URLs to specific controllers and methods. Although it lacks some advanced features found in other frameworks, it is easy to understand and works well for basic routing needs.
-	4.	Built-in Libraries and Helpers:
-CodeIgniter includes various built-in libraries and helpers for common tasks, such as form validation, session management, and file uploads. These libraries simplify repetitive tasks and save development time.
-	5.	Active Record Database Support:
-CodeIgniter includes an Active Record implementation, which provides a simplified interface for database queries. It’s not as feature-rich as ORM systems like Laravel’s Eloquent, but it works well for basic CRUD operations and common queries.
-	6.	Security Features:
-CodeIgniter includes built-in security features, such as XSS filtering, CSRF protection, and data validation, which help protect your application against common vulnerabilities.
-	7.	Error Handling:
-CodeIgniter provides simple error handling and debugging tools, including custom error pages, logging capabilities, and detailed error messages for troubleshooting.
-	8.	Flexible Templating:
-Although CodeIgniter does not have a dedicated templating engine, it supports basic PHP-based templating. This flexibility allows developers to use third-party templating engines if needed, or stick to plain PHP for simplicity.
-	9.	Easy Configuration:
-CodeIgniter’s configuration is straightforward and requires only minimal setup. Most configuration options are stored in a single config file, making it easy to understand and modify as necessary.
+1.	MVC Architecture: CodeIgniter is based on the MVC (Model-View-Controller) pattern, which separates application logic from the presentation. This architecture makes code organization easier and enhances the maintainability of the application.
+2.	Lightweight and Fast: CodeIgniter is known for its speed and small footprint. It does not require complex setup or heavy dependencies, making it a fast framework suitable for projects where performance is crucial.
+3.	Simple Routing: CodeIgniter provides a straightforward URI routing system that lets you map URLs to specific controllers and methods. Although it lacks some advanced features found in other frameworks, it is easy to understand and works well for basic routing needs.
+4.	Built-in Libraries and Helpers: CodeIgniter includes various built-in libraries and helpers for common tasks, such as form validation, session management, and file uploads. These libraries simplify repetitive tasks and save development time.
+5.	Active Record Database Support: CodeIgniter includes an Active Record implementation, which provides a simplified interface for database queries. It’s not as feature-rich as ORM systems like Laravel’s Eloquent, but it works well for basic CRUD operations and common queries.
+6.	Security Features: CodeIgniter includes built-in security features, such as XSS filtering, CSRF protection, and data validation, which help protect your application against common vulnerabilities.
+7.	Error Handling: CodeIgniter provides simple error handling and debugging tools, including custom error pages, logging capabilities, and detailed error messages for troubleshooting.
+8.	Flexible Templating: Although CodeIgniter does not have a dedicated templating engine, it supports basic PHP-based templating. This flexibility allows developers to use third-party templating engines if needed, or stick to plain PHP for simplicity.
+9.	Easy Configuration: CodeIgniter’s configuration is straightforward and requires only minimal setup. Most configuration options are stored in a single config file, making it easy to understand and modify as necessary.
 
 Why Choose CodeIgniter for Your Project
 
-	1.	Simplicity:
-CodeIgniter’s simple setup, minimal configuration, and easy-to-understand structure make it an ideal choice for small to medium-sized applications. It’s also highly beginner-friendly and can help developers learn web development quickly.
-	2.	Performance and Speed:
-With its lightweight nature, CodeIgniter is optimized for performance and speed, making it a good choice for applications where response time is critical.
-	3.	Flexibility and Customization:
-CodeIgniter does not enforce strict coding standards or heavy dependencies, giving developers the freedom to implement their custom solutions and integrate only what’s needed for the project.
-	4.	Ideal for Simple Projects:
-CodeIgniter is well-suited for straightforward applications with less complex requirements. It provides a good balance between features and simplicity, enabling developers to build applications efficiently.
-	5.	Documentation and Community Support:
-CodeIgniter has extensive documentation and a supportive community, making it easy to find tutorials, examples, and solutions for common issues. This makes CodeIgniter accessible to new developers and helpful for troubleshooting.
+1.	Simplicity: CodeIgniter’s simple setup, minimal configuration, and easy-to-understand structure make it an ideal choice for small to medium-sized applications. It’s also highly beginner-friendly and can help developers learn web development quickly.
+2.	Performance and Speed: With its lightweight nature, CodeIgniter is optimized for performance and speed, making it a good choice for applications where response time is critical.
+3.	Flexibility and Customization: CodeIgniter does not enforce strict coding standards or heavy dependencies, giving developers the freedom to implement their custom solutions and integrate only what’s needed for the project.
+4.	Ideal for Simple Projects: CodeIgniter is well-suited for straightforward applications with less complex requirements. It provides a good balance between features and simplicity, enabling developers to build applications efficiently.
+5.	Documentation and Community Support: CodeIgniter has extensive documentation and a supportive community, making it easy to find tutorials, examples, and solutions for common issues. This makes CodeIgniter accessible to new developers and helpful for troubleshooting.
 
 
 
