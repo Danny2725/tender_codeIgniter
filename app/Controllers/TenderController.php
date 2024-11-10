@@ -11,11 +11,10 @@ use App\Models\InviteModel;
 
 class TenderController extends ResourceController
 {
-
     protected $tenderModel;
+
     public function __construct()
     {
-        // Khởi tạo model TenderModel để lấy dữ liệu mẫu
         $this->tenderModel = new TenderModel();
     }
 
@@ -23,7 +22,6 @@ class TenderController extends ResourceController
     {
         return view('tender/create', ['title' => 'Create Tender']);
     }
-
 
     public function createTender()
     {
@@ -38,7 +36,7 @@ class TenderController extends ResourceController
         }
 
         if (!$token) {
-            return $this->respond(['status' => 'error', 'message' => 'Token không được cung cấp'], 401);
+            return $this->respond(['status' => 'error', 'message' => 'Token not provided'], 401);
         }
 
         try {
@@ -52,21 +50,20 @@ class TenderController extends ResourceController
             $visibility = $this->request->getVar('visibility') ?? 'public';
             $invitedSuppliers = $this->request->getVar('invited_suppliers');
 
-            // Kiểm tra các trường bắt buộc
+            // Validate required fields
             if (empty($title) || empty($description)) {
-                return $this->respond(['status' => 'error', 'message' => 'Tiêu đề và mô tả là bắt buộc'], 400);
+                return $this->respond(['status' => 'error', 'message' => 'Title and description are required'], 400);
             }
 
-            // Lưu tender vào bảng tenders
-            $tenderModel = new TenderModel();
-            $tenderId = $tenderModel->insert([
+            // Save tender to tenders table
+            $tenderId = $this->tenderModel->insert([
                 'title' => $title,
                 'description' => $description,
                 'visibility' => $visibility,
                 'creator_id' => $userId
             ]);
 
-            // Lưu tất cả các invited_suppliers vào bảng invites, không phụ thuộc vào visibility
+            // Save all invited_suppliers to invites table, regardless of visibility
             if (!empty($invitedSuppliers) && is_array($invitedSuppliers)) {
                 $inviteModel = new InviteModel();
                 foreach ($invitedSuppliers as $email) {
@@ -77,15 +74,14 @@ class TenderController extends ResourceController
                 }
             }
 
-            return $this->respond(['status' => 'success', 'message' => 'Tender đã được tạo thành công'], 201);
+            return $this->respond(['status' => 'success', 'message' => 'Tender created successfully'], 201);
         } catch (\Exception $e) {
-            return $this->respond(['status' => 'error', 'message' => 'Token không hợp lệ'], 401);
+            return $this->respond(['status' => 'error', 'message' => 'Invalid token'], 401);
         }
     }
 
     public function listContractor()
     {
-        // Lấy token từ cookie hoặc header
         $authHeader = $this->request->getHeader('Authorization');
         $token = null;
         if ($authHeader) {
@@ -98,75 +94,27 @@ class TenderController extends ResourceController
         }
 
         if (!$token) {
-            return redirect()->to('/login')->with('error', 'Bạn cần đăng nhập.');
+            return redirect()->to('/login')->with('error', 'You need to log in.');
         }
 
         try {
-            // Giải mã token để lấy ID người dùng
             $key = (new JWTConfig())->jwt_key;
             $decoded = JWT::decode($token, new Key($key, 'HS256'));
             $userId = $decoded->data->id;
 
-            // Lấy tất cả các tender của contractor
             $tenders = $this->tenderModel->where('creator_id', $userId)->findAll();
 
-            // Render trang danh sách tender cho contractor
             return view('tender/list_contractor', [
                 'title' => 'My Tenders (Contractor)',
                 'tenders' => $tenders
             ]);
         } catch (\Exception $e) {
-            return redirect()->to('/login')->with('error', 'Token không hợp lệ hoặc đã hết hạn.');
+            return redirect()->to('/login')->with('error', 'Invalid or expired token.');
         }
     }
 
-    // public function listSupplier()
-    // {
-    //     // Lấy token từ cookie hoặc header
-    //     $authHeader = $this->request->getHeader('Authorization');
-    //     $token = null;
-    //     if ($authHeader) {
-    //         $headerValue = $authHeader->getValue();
-    //         if (preg_match('/Bearer\s(\S+)/', $headerValue, $matches)) {
-    //             $token = $matches[1];
-    //         }
-    //     } elseif ($this->request->getCookie('token')) {
-    //         $token = $this->request->getCookie('token');
-    //     }
-
-    //     if (!$token) {
-    //         return redirect()->to('/login')->with('error', 'Bạn cần đăng nhập.');
-    //     }
-
-    //     try {
-
-    //         $key = (new JWTConfig())->jwt_key;
-    //         $decoded = JWT::decode($token, new Key($key, 'HS256'));
-    //         $userEmail = $decoded->data->email;
-    //         $publicTenders = $this->tenderModel->where('visibility', 'public')->findAll();
-    //         $inviteModel = new InviteModel();
-    //         $invites = $inviteModel->where('supplier_email', $userEmail)->findAll();
-    //         $invitedTenderIds = array_column($invites, 'tender_id');
-    //         $privateTenders = [];
-    //         if (!empty($invitedTenderIds)) {
-    //             $privateTenders = $this->tenderModel->whereIn('id', $invitedTenderIds)->where('visibility', 'private')->findAll();
-    //         }
-
-    //         // Render trang danh sách tender cho supplier với các tab Public và Private
-    //         return view('tender/list_supplier', [
-    //             'title' => 'Available Tenders (Supplier)',
-    //             'publicTenders' => $publicTenders,
-    //             'privateTenders' => $privateTenders
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return redirect()->to('/login')->with('error', 'Token không hợp lệ hoặc đã hết hạn.');
-    //     }
-    // }
-
-
     public function listSupplier()
     {
-
         $authHeader = $this->request->getHeader('Authorization');
         $token = null;
         if ($authHeader) {
@@ -179,11 +127,10 @@ class TenderController extends ResourceController
         }
 
         if (!$token) {
-            return redirect()->to('/login')->with('error', 'Bạn cần đăng nhập.');
+            return redirect()->to('/login')->with('error', 'You need to log in.');
         }
 
         try {
-
             $key = (new JWTConfig())->jwt_key;
             $decoded = JWT::decode($token, new Key($key, 'HS256'));
             $userId = $decoded->data->id;
@@ -209,7 +156,101 @@ class TenderController extends ResourceController
                 'privateTenders' => $privateTenders
             ]);
         } catch (\Exception $e) {
-            return redirect()->to('/login')->with('error', 'Token không hợp lệ hoặc đã hết hạn.');
+            return redirect()->to('/login')->with('error', 'Invalid or expired token.');
+        }
+    }
+
+    public function editTender($id)
+    {
+        $tender = $this->tenderModel->find($id);
+        if (!$tender) {
+            return redirect()->to('/tender/list_contractor')->with('error', 'Tender not found.');
+        }
+
+        $inviteModel = new InviteModel();
+        $invitedSuppliers = $inviteModel->where('tender_id', $id)->findAll();
+        $invitedEmails = array_column($invitedSuppliers, 'supplier_email');
+
+        return view('tender/edit', [
+            'tender' => $tender,
+            'invitedSuppliers' => $invitedEmails
+        ]);
+    }
+
+    public function updateTender($id)
+    {
+        $tenderModel = new TenderModel();
+        $inviteModel = new InviteModel();
+
+        $data = $this->request->getJSON(true);
+        $title = $data['title'];
+        $description = $data['description'];
+        $visibility = $data['visibility'];
+        $invitedSuppliers = $data['invited_suppliers'] ?? [];
+
+        if (empty($title) || empty($description)) {
+            return $this->respond(['status' => 'error', 'message' => 'Title and description are required.'], 400);
+        }
+
+        $tenderModel->update($id, [
+            'title' => $title,
+            'description' => $description,
+            'visibility' => $visibility
+        ]);
+
+        $inviteModel->where('tender_id', $id)->delete();
+        foreach ($invitedSuppliers as $email) {
+            $inviteModel->insert([
+                'tender_id' => $id,
+                'supplier_email' => $email
+            ]);
+        }
+
+        return $this->respond(['status' => 'success', 'message' => 'Tender updated successfully.']);
+    }
+
+    private function extractToken($authHeader)
+    {
+        $token = null;
+
+        if ($authHeader) {
+            $headerValue = $authHeader->getValue();
+            if (preg_match('/Bearer\s(\S+)/', $headerValue, $matches)) {
+                $token = $matches[1];
+            }
+        } elseif ($this->request->getCookie('token')) {
+            $token = $this->request->getCookie('token');
+        }
+
+        return $token;
+    }
+
+    public function deleteTender($id)
+    {
+        $authHeader = $this->request->getHeader('Authorization');
+        $token = $this->extractToken($authHeader);
+
+        if (!$token) {
+            return $this->respond(['status' => 'error', 'message' => 'You need to log in.'], 401);
+        }
+
+        try {
+            $key = (new JWTConfig())->jwt_key;
+            $decoded = JWT::decode($token, new Key($key, 'HS256'));
+            $userId = $decoded->data->id;
+
+            $tender = $this->tenderModel->find($id);
+            if (!$tender || $tender['creator_id'] != $userId) {
+                return $this->respond(['status' => 'error', 'message' => 'Tender not found or you do not have permission to delete this tender.'], 403);
+            }
+
+            $this->tenderModel->delete($id);
+            $inviteModel = new InviteModel();
+            $inviteModel->where('tender_id', $id)->delete();
+
+            return $this->respond(['status' => 'success', 'message' => 'Tender deleted successfully.']);
+        } catch (\Exception $e) {
+            return $this->respond(['status' => 'error', 'message' => 'Invalid or expired token.'], 401);
         }
     }
 }

@@ -12,7 +12,9 @@ $routes->get('/tender/list_contractor', 'TenderController::listContractor', ['fi
 $routes->get('/tender/list_supplier', 'TenderController::listSupplier', ['filter' => 'auth']);
 
 
-
+$routes->put('tender/update/(:num)', 'TenderController::updateTender/$1');
+$routes->get('tender/edit/(:num)', 'TenderController::editTender/$1');
+$routes->delete('tender/delete/(:num)', 'TenderController::deleteTender/$1');
 
 // Auth 
 $routes->post('auth/register', 'AuthController::register');
