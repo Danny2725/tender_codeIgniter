@@ -1,69 +1,240 @@
-# CodeIgniter 4 Application Starter
+I. Project Setup Guide
+Prerequisites
+	•	Docker and Docker Compose installed on your machine.
+	•	Git for cloning the repository.
+  1.	Clone the Project:
+   git clone https://github.com/Danny2725/tender_codeIgniter
+   cd tender_codeIgniter
+	2.	Switch to the develop branch:
+  git checkout develop
+  3.  Navigate to the Docker Directory:
+     cd docker
+ 	4.	Start the Docker Containers:
+	•	This command will build and start the containers in detached mode.
+	•	You can access the application at http://localhost (or another port if configured differently in docker-compose.yml).
+ 	5.	Stopping the Containers:
+	•	When you’re done, stop the containers with:
+    docker-compose down
+ II. Curl
 
-## What is CodeIgniter?
+  1. Auth: 
+- Register
+```
+curl --silent --location --request POST 'http://localhost/auth/register' \
+--header 'Accept: */*' \
+--header 'Accept-Language: en-US,en;q=0.9,vi;q=0.8' \
+--header 'Cache-Control: no-cache' \
+--header 'Connection: keep-alive' \
+--header 'Content-Type: application/json' \
+--header 'Origin: http://localhost' \
+--header 'Pragma: no-cache' \
+--header 'Referer: http://localhost/register' \
+--header 'Sec-Fetch-Dest: empty' \
+--header 'Sec-Fetch-Mode: cors' \
+--header 'Sec-Fetch-Site: same-origin' \
+--header 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'sec-ch-ua: "Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"' \
+--header 'sec-ch-ua-mobile: ?0' \
+--header 'sec-ch-ua-platform: "macOS"'
+```
+- Login
+```
+curl --silent --location --request POST 'http://localhost/auth/login' \
+--header 'Accept: */*' \
+--header 'Accept-Language: en-US,en;q=0.9,vi;q=0.8' \
+--header 'Cache-Control: no-cache' \
+--header 'Connection: keep-alive' \
+--header 'Content-Type: application/json' \
+--header 'Origin: http://localhost' \
+--header 'Pragma: no-cache' \
+--header 'Referer: http://localhost/login' \
+--header 'Sec-Fetch-Dest: empty' \
+--header 'Sec-Fetch-Mode: cors' \
+--header 'Sec-Fetch-Site: same-origin' \
+--header 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'sec-ch-ua: "Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"' \
+--header 'sec-ch-ua-mobile: ?0' \
+--header 'sec-ch-ua-platform: "macOS"' \
+--data-raw '{"email":"testing1@gmail.com","password":"your_password"}'
+````
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+2. Create Tender
+```
+curl --silent --location --request POST 'http://localhost/tender/createTender' \
+--header 'Accept: */*' \
+--header 'Accept-Language: en-US,en;q=0.9,vi;q=0.8' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjE3MzEyNTA0NjksImV4cCI6MTczMTI1NDA2OSwiZGF0YSI6eyJpZCI6IjEiLCJlbWFpbCI6InRlc3RpbmcxQGdtYWlsLmNvbSIsInJvbGUiOiJjb250cmFjdG9yIn19.CJGbjasyavaEokcUZ7F7mpcjUv4cn9DEdcrpLl_vJ_0' \
+--header 'Cache-Control: no-cache' \
+--header 'Connection: keep-alive' \
+--header 'Content-Type: application/json' \
+--header 'Origin: http://localhost' \
+--header 'Pragma: no-cache' \
+--header 'Referer: http://localhost/tender/create' \
+--header 'Sec-Fetch-Dest: empty' \
+--header 'Sec-Fetch-Mode: cors' \
+--header 'Sec-Fetch-Site: same-origin' \
+--header 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36' \
+--header 'sec-ch-ua: "Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"' \
+--header 'sec-ch-ua-mobile: ?0' \
+--header 'sec-ch-ua-platform: "macOS"' \
+--data-raw '{"title":"demo","description":"demo test 123","visibility":"public","invited_suppliers":["demo1@gmail.com","demo2@gmail.com"]}'
+```
+3. get list contructor
+```
+curl --silent --location --request GET 'http://localhost/tender/list_contractor' \
+--header 'Accept: */*' \
+--header 'Accept-Language: en-US,en;q=0.9,vi;q=0.8' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjE3MzEyNTE2OTIsImV4cCI6MTczMTI1NTI5MiwiZGF0YSI6eyJpZCI6IjEiLCJlbWFpbCI6InRlc3RpbmcxQGdtYWlsLmNvbSIsInJvbGUiOiJjb250cmFjdG9yIn19.B4aj3gbktq-EMqKqKefFtjwnAxVhu9CFRJck9-2dRO4' \
+--header 'Cache-Control: no-cache' \
+--header 'Connection: keep-alive' \
+--header 'Content-Type: application/json' \
+--header 'Origin: http://localhost' \
+--header 'Pragma: no-cache' \
+--header 'Referer: http://localhost/tender/create' \
+--header 'Sec-Fetch-Dest: empty' \
+--header 'Sec-Fetch-Mode: cors' \
+--header 'Sec-Fetch-Site: same-origin' \
+--header 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36' \
+--header 'sec-ch-ua: "Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"' \
+--header 'sec-ch-ua-mobile: ?0' \
+--header 'sec-ch-ua-platform: "macOS"' \
+--data-raw '{"title":"demo","description":"demo test 123","visibility":"public","invited_suppliers":["demo1@gmail.com","demo2@gmail.com"]}'
+```
+4. Edit tender
+```
+curl 'http://localhost/tender/update/4' \
+  -X 'PUT' \
+  -H 'Accept: */*' \
+  -H 'Accept-Language: en-US,en;q=0.9,vi;q=0.8' \
+  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjE3MzEyNTE2OTIsImV4cCI6MTczMTI1NTI5MiwiZGF0YSI6eyJpZCI6IjEiLCJlbWFpbCI6InRlc3RpbmcxQGdtYWlsLmNvbSIsInJvbGUiOiJjb250cmFjdG9yIn19.B4aj3gbktq-EMqKqKefFtjwnAxVhu9CFRJck9-2dRO4' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Cookie: token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjE3MzEyNTE2OTIsImV4cCI6MTczMTI1NTI5MiwiZGF0YSI6eyJpZCI6IjEiLCJlbWFpbCI6InRlc3RpbmcxQGdtYWlsLmNvbSIsInJvbGUiOiJjb250cmFjdG9yIn19.B4aj3gbktq-EMqKqKefFtjwnAxVhu9CFRJck9-2dRO4; ci_session=fab81aa1515a988b605833605d7aee30abcff2ea' \
+  -H 'Origin: http://localhost' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: http://localhost/tender/edit/4' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  --data-raw '{"title":"testing public 1","description":"testing public 1","visibility":"public","invited_suppliers":["testing2@gmail.com","qunat4@gmail.com","test1@gmail.com"]}'
+```
+5. Delete tender
+```
+curl 'http://localhost/tender/delete/4' \
+  -X 'DELETE' \
+  -H 'Accept: */*' \
+  -H 'Accept-Language: en-US,en;q=0.9,vi;q=0.8' \
+  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjE3MzEyNTE2OTIsImV4cCI6MTczMTI1NTI5MiwiZGF0YSI6eyJpZCI6IjEiLCJlbWFpbCI6InRlc3RpbmcxQGdtYWlsLmNvbSIsInJvbGUiOiJjb250cmFjdG9yIn19.B4aj3gbktq-EMqKqKefFtjwnAxVhu9CFRJck9-2dRO4' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Cookie: token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjE3MzEyNTE2OTIsImV4cCI6MTczMTI1NTI5MiwiZGF0YSI6eyJpZCI6IjEiLCJlbWFpbCI6InRlc3RpbmcxQGdtYWlsLmNvbSIsInJvbGUiOiJjb250cmFjdG9yIn19.B4aj3gbktq-EMqKqKefFtjwnAxVhu9CFRJck9-2dRO4; ci_session=b3f5f52b469dfcb628657e415026692849b8653c' \
+  -H 'Origin: http://localhost' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: http://localhost/tender/list_contractor' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"'
+```
+6. get list supplier
+```
+curl --silent --location --request GET 'http://localhost/tender/list_supplier' \
+--header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+--header 'Accept-Language: en-US,en;q=0.9,vi;q=0.8' \
+--header 'Cache-Control: no-cache' \
+--header 'Connection: keep-alive' \
+--header 'Cookie: token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjE3MzEyNTE2OTIsImV4cCI6MTczMTI1NTI5MiwiZGF0YSI6eyJpZCI6IjEiLCJlbWFpbCI6InRlc3RpbmcxQGdtYWlsLmNvbSIsInJvbGUiOiJjb250cmFjdG9yIn19.B4aj3gbktq-EMqKqKefFtjwnAxVhu9CFRJck9-2dRO4; ci_session=b3f5f52b469dfcb628657e415026692849b8653c' \
+--header 'Pragma: no-cache' \
+--header 'Referer: http://localhost/tender/list_contractor' \
+--header 'Sec-Fetch-Dest: document' \
+--header 'Sec-Fetch-Mode: navigate' \
+--header 'Sec-Fetch-Site: same-origin' \
+--header 'Sec-Fetch-User: ?1' \
+--header 'Upgrade-Insecure-Requests: 1' \
+--header 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36' \
+--header 'sec-ch-ua: "Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"' \
+--header 'sec-ch-ua-mobile: ?0' \
+--header 'sec-ch-ua-platform: "macOS"'
+```
+7. get supplier detail
+```
+|curl 'http://localhost/tender/view/9' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+  -H 'Accept-Language: en-US,en;q=0.9,vi;q=0.8' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Cookie: token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjE3MzEyNTE2OTIsImV4cCI6MTczMTI1NTI5MiwiZGF0YSI6eyJpZCI6IjEiLCJlbWFpbCI6InRlc3RpbmcxQGdtYWlsLmNvbSIsInJvbGUiOiJjb250cmFjdG9yIn19.B4aj3gbktq-EMqKqKefFtjwnAxVhu9CFRJck9-2dRO4; ci_session=b3f5f52b469dfcb628657e415026692849b8653c' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: http://localhost/tender/list_supplier' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"'
+```
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+III> Migration
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+1. users table
+```
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('contractor','supplier') DEFAULT 'supplier',
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_uca1400_ai_ci;
+```
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+2. Tender table
+```
+DROP TABLE IF EXISTS `tenders`;
+CREATE TABLE `tenders` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `visibility` enum('public','private') DEFAULT 'public',
+  `creator_id` int(5) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `creator_id` (`creator_id`),
+  CONSTRAINT `tenders_ibfk_1` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_uca1400_ai_ci;
+```
 
-## Installation & updates
+3. invents table
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+```
+DROP TABLE IF EXISTS `invites`;
+CREATE TABLE `invites` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `tender_id` int(5) unsigned NOT NULL,
+  `supplier_email` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `tender_id` (`tender_id`),
+  CONSTRAINT `invites_ibfk_1` FOREIGN KEY (`tender_id`) REFERENCES `tenders` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_uca1400_ai_ci;
+```
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
-
-## Setup
-
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-# tender_codeIgniter
