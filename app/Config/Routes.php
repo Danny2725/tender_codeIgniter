@@ -11,6 +11,9 @@ $routes->post('/tender/createTender', 'TenderController::createTender', ['filter
 $routes->get('/tender/list_contractor', 'TenderController::listContractor', ['filter' => 'auth']);
 $routes->get('/tender/list_supplier', 'TenderController::listSupplier', ['filter' => 'auth']);
 
+
+
+
 // Auth 
 $routes->post('auth/register', 'AuthController::register');
 $routes->get('/login', 'AuthController::index');
