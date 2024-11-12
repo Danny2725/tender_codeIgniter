@@ -238,25 +238,6 @@ CREATE TABLE `invites` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_uca1400_ai_ci;
 ```
 
-
-
-
-CodeIgniter Overview
-
-CodeIgniter is a powerful yet lightweight PHP framework known for its simplicity, speed, and small footprint, making it ideal for small to medium-sized applications. CodeIgniter was initially released in 2006 by EllisLab, and it has gained popularity due to its easy setup and low learning curve, which enables developers to build projects quickly with minimal overhead.
-
-Key Features of CodeIgniter
-
-1.	MVC Architecture: CodeIgniter is based on the MVC (Model-View-Controller) pattern, which separates application logic from the presentation. This architecture makes code organization easier and enhances the maintainability of the application.
-2.	Lightweight and Fast: CodeIgniter is known for its speed and small footprint. It does not require complex setup or heavy dependencies, making it a fast framework suitable for projects where performance is crucial.
-3.	Simple Routing: CodeIgniter provides a straightforward URI routing system that lets you map URLs to specific controllers and methods. Although it lacks some advanced features found in other frameworks, it is easy to understand and works well for basic routing needs.
-4.	Built-in Libraries and Helpers: CodeIgniter includes various built-in libraries and helpers for common tasks, such as form validation, session management, and file uploads. These libraries simplify repetitive tasks and save development time.
-5.	Active Record Database Support: CodeIgniter includes an Active Record implementation, which provides a simplified interface for database queries. It’s not as feature-rich as ORM systems like Laravel’s Eloquent, but it works well for basic CRUD operations and common queries.
-6.	Security Features: CodeIgniter includes built-in security features, such as XSS filtering, CSRF protection, and data validation, which help protect your application against common vulnerabilities.
-7.	Error Handling: CodeIgniter provides simple error handling and debugging tools, including custom error pages, logging capabilities, and detailed error messages for troubleshooting.
-8.	Flexible Templating: Although CodeIgniter does not have a dedicated templating engine, it supports basic PHP-based templating. This flexibility allows developers to use third-party templating engines if needed, or stick to plain PHP for simplicity.
-9.	Easy Configuration: CodeIgniter’s configuration is straightforward and requires only minimal setup. Most configuration options are stored in a single config file, making it easy to understand and modify as necessary.
-
 Why Choose CodeIgniter for Your Project
 
 1.	Simplicity: CodeIgniter’s simple setup, minimal configuration, and easy-to-understand structure make it an ideal choice for small to medium-sized applications. It’s also highly beginner-friendly and can help developers learn web development quickly.
